@@ -21,36 +21,36 @@ public class Game {
         int ratio = (int) (Math.random() * 101);
         outerloop:
         while (true) {
-            int y = (int) (Math.random() * 6) + 1;
+            int y = (int) (Math.random() * 5) + 1;
 
             if (random_side == 0) {
                 for (Zombie zombie : Zombie.zombies) {
-                    if (-20 == zombie.getX() && y == zombie.getY()) break;
+                    if (-11 == zombie.getX() && y == zombie.getY()) break;
                     else {
                         if (ratio <= 50) {
-                            pieces.add(new WalkingZombie(-20, y));
+                            pieces.add(new WalkingZombie(-11, y));
                             break outerloop;
                         } else if (ratio <= 80) {
-                            pieces.add(new RunningZombie(-20, y));
+                            pieces.add(new RunningZombie(-11, y));
                             break outerloop;
                         } else {
-                            pieces.add(new TeleportingZombie(-20, y));
+                            pieces.add(new TeleportingZombie(-11, y));
                             break outerloop;
                         }
                     }
                 }
             } else {
                 for (Zombie zombie : Zombie.zombies) {
-                    if (20 == zombie.getX() && y == zombie.getY()) break;
+                    if (11 == zombie.getX() && y == zombie.getY()) break;
                     else {
                         if (ratio <= 50) {
-                            pieces.add(new WalkingZombie(20, y));
+                            pieces.add(new WalkingZombie(11, y));
                             break outerloop;
                         } else if (ratio <= 80) {
-                            pieces.add(new RunningZombie(20, y));
+                            pieces.add(new RunningZombie(11, y));
                             break outerloop;
                         } else {
-                            pieces.add(new TeleportingZombie(20, y));
+                            pieces.add(new TeleportingZombie(11, y));
                             break outerloop;
                         }
                     }
@@ -82,5 +82,6 @@ public class Game {
         return true;
     }
 
-    public static Comparator<Zombie> Compare_xPos = Comparator.comparingInt(Zombie::getX);
+    //may not need math abs
+    public static Comparator<Zombie> Compare_xPos = (a, b) -> Math.abs(Integer.compare(a.getX(), b.getX()));
 }

@@ -5,10 +5,10 @@ public class TeleportingZombie extends Zombie {
 
     public void preMove() {
         int random_int = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
-        if (xPos % 2 == 0 && xPos != 2) {
+        if (xPos % 2 == 0 && xPos != 1) {
             xNxt = xPos / 2;
             yNxt = random_int;
-        } else if (xPos % 2 != 0 && xPos != 2) {
+        } else if (xPos % 2 != 0 && xPos != 1) {
             xNxt = (xPos * 3) + 1;
             yNxt = random_int;
         }
