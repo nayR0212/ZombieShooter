@@ -1,28 +1,31 @@
-import java.util.Collections;
-
 public class Main {
     public static void main(String[] args) {
-        Game Game = new Game();
+        Game game = new Game();
 
-        Game.pieces.add(Game.player);
+        game.pieces.add(game.player);
 
         for (int i = 1; i <= 5; i++) {
-            Game.pieces.add(new Barricade(1, i));
-            Game.pieces.add(new Barricade(-1, i));
+            game.pieces.add(new Barricade(1, i));
+            game.pieces.add(new Barricade(-1, i));
         }
-        Game.pieces.add(new RunningZombie(10, 3));
-        Game.pieces.add(new WalkingZombie(-5, 3));
+        game.pieces.add(new RunningZombie(10, 3));
+        game.pieces.add(new WalkingZombie(-5, 3));
 
-        Game.pieces.add(new WalkingZombie(3, 4));
+        game.pieces.add(new WalkingZombie(3, 4));
+        game.spawnZombie();
 
 
         while (true) {
-            System.out.println(Game.pieces.toString());
+            for(Zombie zombie : Zombie.zombies) {
+                System.out.print(zombie.getX());
+                System.out.print(" "+ zombie.getY());
+                System.out.println();
+            }
 
-            Game.checkDead();
-            Collections.sort(Zombie.zombies, Game.Compare_xPos);
-            Game.board.updateBoard(Game.pieces, Game.player);
-            Game.moveAll();
+            game.checkDead();
+            Zombie.zombies.sort(Game.Compare_xPos);
+            game.board.updateBoard(game.pieces, game.player);
+            game.moveAll();
 
 
         }
