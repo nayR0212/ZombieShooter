@@ -5,7 +5,7 @@ public class WalkingZombie extends Zombie {
 
     public void preMove() {
         if (!isShot()) {
-            if (xPos >= -2) {
+            if (xPos <= -2) {
                 xNxt = xPos + 1;
                 yNxt = yPos;
             } else if (xPos >= 2) {
