@@ -22,7 +22,7 @@ public class Board {
                             int j = Zombie.zombies.size() - 1;
                             for (Zombie zombie : Zombie.zombies) {
                                 if (x == zombie.getX() && y == zombie.getY()) {
-                                    System.out.print(" " + zombie + piece);
+                                    System.out.print("  " + zombie + piece);
                                     break outerloop;
                                 } else if (j-- == 0) System.out.print("  ▎" + piece);
                             }
@@ -48,15 +48,15 @@ public class Board {
                     if (x == piece.getX() && y == piece.getY()) {
                         if (piece instanceof Barricade) {
                             if (Zombie.zombies.size() == 0) {
-                                System.out.print(piece + "▎  ");
+                                System.out.print(piece + " ▎  ");
                                 break;
                             }
                             int j = Zombie.zombies.size() - 1;
                             for (Zombie zombie : Zombie.zombies) {
                                 if (x == zombie.getX() && y == zombie.getY()) {
-                                    System.out.print(piece.toString() + zombie + " ");
+                                    System.out.print(piece.toString() + zombie + "  ");
                                     break outerloop2;
-                                } else if (j-- == 0) System.out.print(piece + "▎  ");
+                                } else if (j-- == 0) System.out.print(piece + " ▎  ");
                             }
                         } else {
                             System.out.print(piece + " ");

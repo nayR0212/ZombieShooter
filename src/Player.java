@@ -20,14 +20,14 @@ public class Player implements Positionable, Moveable, Attacker {
         target = null;
         if (dir == -1)
             for (Zombie zombie : Zombie.zombies) {
-                if (yPos == zombie.getY() && zombie.getX() < 0) {
+                if (yPos == zombie.getY() && -10 <= zombie.getX() && zombie.getX() <= -1) {
                     target = zombie;
                     break;
                 }
             }
         else {
             for (Zombie zombie : Zombie.zombies) {
-                if (yPos == zombie.getY() && zombie.getX() > 0) {
+                if (yPos == zombie.getY() && 10 <= zombie.getX() && zombie.getX() <= 1) {
                     target = zombie;
                     break;
                 }
