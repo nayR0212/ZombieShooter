@@ -16,51 +16,71 @@ public class Game {
         }
     }
 
-    //not finished... zombie type, xpos
-/*    public Zombie spawnZombie() {
-        int random_side = (int)(Math.random() * 2);
-        int y = (int)(Math.random() * 6) - 1;
+    public void spawnZombie() {
+        int random_side = (int) (Math.random() * 2);
+        int ratio = (int) (Math.random() * 101);
+        outerloop:
+        while (true) {
+            int y = (int) (Math.random() * 6) + 1;
 
-        if(random_side == 0) {
-
-        } else {
-
+            if (random_side == 0) {
+                for (Zombie zombie : Zombie.zombies) {
+                    if (-20 == zombie.getX() && y == zombie.getY()) break;
+                    else {
+                        if (ratio <= 50) {
+                            pieces.add(new WalkingZombie(-20, y));
+                            break outerloop;
+                        } else if (ratio <= 80) {
+                            pieces.add(new RunningZombie(-20, y));
+                            break outerloop;
+                        } else {
+                            pieces.add(new TeleportingZombie(-20, y));
+                            break outerloop;
+                        }
+                    }
+                }
+            } else {
+                for (Zombie zombie : Zombie.zombies) {
+                    if (20 == zombie.getX() && y == zombie.getY()) break;
+                    else {
+                        if (ratio <= 50) {
+                            pieces.add(new WalkingZombie(20, y));
+                            break outerloop;
+                        } else if (ratio <= 80) {
+                            pieces.add(new RunningZombie(20, y));
+                            break outerloop;
+                        } else {
+                            pieces.add(new TeleportingZombie(20, y));
+                            break outerloop;
+                        }
+                    }
+                }
+            }
         }
-    }*/
+    }
 
     public void checkDead() {
         for (Iterator<Zombie> zombie = Zombie.zombies.iterator(); zombie.hasNext(); ) {
             Zombie zt = zombie.next();
-            if (zt.isAlive() == false) {
+            if (!zt.isAlive()) {
                 //bandage... this works wtf... maybe cast zombie to positionable
-                for (Iterator<Positionable> piece = pieces.iterator(); piece.hasNext(); ) {
-                    Positionable pt = piece.next();
-                    if (zt.getX() == pt.getX() && zt.getY() == pt.getY()) {
-                        piece.remove();
-                    }
-                }
+                pieces.removeIf(pt -> zt.getX() == pt.getX() && zt.getY() == pt.getY());
                 dead.add(zt);
                 zombie.remove();
             }
         }
     }
 
-    //not tested
     public boolean gameActive() {
         for (Barricade barricade : Barricade.barricades) {
-            if (barricade.isAlive() == false) {
+            if (!barricade.isAlive()) {
                 for (Zombie zombie : Zombie.zombies) {
                     if (barricade.getX() == zombie.getX() && barricade.getY() == zombie.getY()) return false;
                 }
             }
         }
-        return Zombie.zombies.size() > 0;
+        return true;
     }
 
-    public static Comparator<Zombie> Compare_xPos = new Comparator<Zombie>() {
-        //may not need math abs
-        public int compare(Zombie a, Zombie b) {
-            return Integer.valueOf(a.getX()).compareTo(b.getX());
-        }
-    };
+    public static Comparator<Zombie> Compare_xPos = Comparator.comparingInt(Zombie::getX);
 }
