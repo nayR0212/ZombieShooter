@@ -5,7 +5,7 @@ public class Barricade implements Positionable, Damageable {
     private int currHealth = 100;
     private final int xPos;
     private final int yPos;
-    static ArrayList<Barricade> barricades = new ArrayList<Barricade>();
+    static ArrayList<Barricade> barricades = new ArrayList<>();
 
     public Barricade(int _x, int _y) {
         xPos = _x;
