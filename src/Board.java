@@ -16,18 +16,18 @@ public class Board {
                     if (x == piece.getX() && y == piece.getY()) { //this doesnt happen when zombie dies on barricade
                         if (piece instanceof Barricade) {
                             if (Zombie.zombies.size() == 0) {
-                                System.out.print("  ▎" + piece.toString());
+                                System.out.print("  ▎" + piece);
                                 break;
                             }
                             int j = Zombie.zombies.size() - 1;
                             for (Zombie zombie : Zombie.zombies) {
                                 if (x == zombie.getX() && y == zombie.getY()) {
-                                    System.out.print(" " + zombie.toString() + piece.toString());
+                                    System.out.print(" " + zombie + piece);
                                     break outerloop;
-                                } else if (j-- == 0) System.out.print("  ▎" + piece.toString());
+                                } else if (j-- == 0) System.out.print("  ▎" + piece);
                             }
                         } else {
-                            System.out.print(" " + piece.toString());
+                            System.out.print(" " + piece);
                             break;
                         }
                     } else if (i-- == 0) {
@@ -37,7 +37,7 @@ public class Board {
             }
 
             //print player
-            if (y == player.getY()) System.out.print(" " + player.toString() + " ");
+            if (y == player.getY()) System.out.print(" " + player + " ");
             else System.out.print("   ");
 
             //print right
@@ -48,18 +48,18 @@ public class Board {
                     if (x == piece.getX() && y == piece.getY()) {
                         if (piece instanceof Barricade) {
                             if (Zombie.zombies.size() == 0) {
-                                System.out.print(piece.toString() + "▎ ");
+                                System.out.print(piece + "▎  ");
                                 break;
                             }
                             int j = Zombie.zombies.size() - 1;
                             for (Zombie zombie : Zombie.zombies) {
                                 if (x == zombie.getX() && y == zombie.getY()) {
-                                    System.out.print(piece.toString() + zombie.toString() + " ");
+                                    System.out.print(piece.toString() + zombie + " ");
                                     break outerloop2;
-                                } else if (j-- == 0) System.out.print(piece.toString() + "▎ ");
+                                } else if (j-- == 0) System.out.print(piece + "▎  ");
                             }
                         } else {
-                            System.out.print(piece.toString() + " ");
+                            System.out.print(piece + " ");
                             break;
                         }
                     } else if (i-- == 0) {
