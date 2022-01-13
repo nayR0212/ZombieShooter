@@ -83,7 +83,6 @@ public class Game {
     }
 
     public static Comparator<Zombie> Compare_xPos = new Comparator<Zombie>() {
-        //may not need math abs
         public int compare(Zombie a, Zombie b) {
             return Integer.valueOf(Math.abs(a.getX())).compareTo(Math.abs(b.getX()));
         }
