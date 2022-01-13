@@ -13,7 +13,10 @@ public class WalkingZombie extends Zombie {
                 yNxt = yPos;
             }
 
-        } else shot -= 1;
+        } else {
+            unMove();
+            shot -= 1;
+        }
     }
 
     public String toString() {

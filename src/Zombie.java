@@ -113,7 +113,7 @@ public class Zombie implements Attacker, Damageable, Moveable, Positionable {
     }
 
     public void toggleShot() {
-        shot = 2;
+        shot = 3;
     }
 
     public int getRank() {
