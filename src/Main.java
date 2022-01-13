@@ -1,3 +1,5 @@
+import java.util.Collections;
+
 public class Main {
     public static void main(String[] args) {
         Game game = new Game();
@@ -8,26 +10,23 @@ public class Main {
             game.pieces.add(new Barricade(1, i));
             game.pieces.add(new Barricade(-1, i));
         }
+        //game doesn't work if a zombie isn't added here
         game.pieces.add(new RunningZombie(10, 3));
-        game.pieces.add(new WalkingZombie(-5, 3));
 
-        game.pieces.add(new WalkingZombie(3, 4));
-        game.spawnZombie();
+        int score = 0;
+        while (game.gameActive()) {
+            score++;
 
+            game.spawnZombie();
 
-        while (true) {
-            for(Zombie zombie : Zombie.zombies) {
-                System.out.print(zombie.getX());
-                System.out.print(" "+ zombie.getY());
-                System.out.println();
-            }
-
-            game.checkDead();
-            Zombie.zombies.sort(Game.Compare_xPos);
+            Collections.sort(Zombie.zombies, Game.Compare_xPos);
             game.board.updateBoard(game.pieces, game.player);
             game.moveAll();
-
+            game.checkDead();
 
         }
+
+        System.out.println("You lose!");
+        System.out.println("Score: " + score);
     }
 }
