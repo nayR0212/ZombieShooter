@@ -63,9 +63,9 @@ public class Game {
         for (Iterator<Zombie> zombie = Zombie.zombies.iterator(); zombie.hasNext(); ) {
             Zombie zt = zombie.next();
             if (!zt.isAlive()) {
-                //bandage... this works wtf... maybe cast zombie to positionable
-                pieces.removeIf(pt -> zt.getX() == pt.getX() && zt.getY() == pt.getY());
+                Positionable piece = zt;
                 dead.add(zt);
+                pieces.remove(piece);
                 zombie.remove();
             }
         }
@@ -82,6 +82,10 @@ public class Game {
         return true;
     }
 
-    //may not need math abs
-    public static Comparator<Zombie> Compare_xPos = (a, b) -> Math.abs(Integer.compare(a.getX(), b.getX()));
+    public static Comparator<Zombie> Compare_xPos = new Comparator<Zombie>() {
+        //may not need math abs
+        public int compare(Zombie a, Zombie b) {
+            return Integer.valueOf(Math.abs(a.getX())).compareTo(Math.abs(b.getX()));
+        }
+    };
 }
