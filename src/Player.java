@@ -18,22 +18,27 @@ public class Player implements Positionable, Moveable, Attacker {
 
     public void attack() {
         target = null;
-        if (dir == -1)
+        if (dir == -1) {
             for (Zombie zombie : Zombie.zombies) {
-                if (yPos == zombie.getY() && -10 <= zombie.getX() && zombie.getX() <= -1) {
+                if (yPos == zombie.getY() && zombie.getX() >= -10 && zombie.getX() <= -1) {
                     target = zombie;
                     break;
                 }
             }
-        else {
+        } else {
             for (Zombie zombie : Zombie.zombies) {
-                if (yPos == zombie.getY() && 10 <= zombie.getX() && zombie.getX() <= 1) {
+                if (yPos == zombie.getY() && zombie.getX() >= 1 && zombie.getX() <= 10) {
                     target = zombie;
                     break;
                 }
             }
         }
-        if (target != null) target.damage(weaponDamage);
+        if (target != null) {
+            target.damage(weaponDamage);
+            Zombie zombie = (Zombie) target;
+            zombie.toggleShot();
+
+        }
     }
 
     public void addTarget(Damageable _target) {
@@ -53,7 +58,7 @@ public class Player implements Positionable, Moveable, Attacker {
         while (true) {
             System.out.println("Player Move:");
             String user = IO.nextLine().toLowerCase();
-            if(user.length() == 0) {
+            if (user.length() == 0) {
                 System.out.println("No Input");
             } else {
                 char input = user.charAt(0);
@@ -61,9 +66,17 @@ public class Player implements Positionable, Moveable, Attacker {
                 switch (input) {
                     case 'w':
                         if (yPos != 5) return 1;
+                        else {
+                            System.out.println("Can't move there");
+                            break;
+                        }
 
                     case 's':
                         if (yPos != 1) return 2;
+                        else {
+                            System.out.println("Can't move there");
+                            break;
+                        }
 
                     case 'a':
                         return 3;
@@ -78,7 +91,6 @@ public class Player implements Positionable, Moveable, Attacker {
         }
     }
 
-    // doesn't target sometimes idk... toggleshotstate for zombie... only shoot if visible
     public void move() {
         int input = getValidInput();
         switch (input) {
