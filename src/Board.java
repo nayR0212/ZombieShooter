@@ -16,7 +16,7 @@ public class Board {
                     if (x == piece.getX() && y == piece.getY()) { //this doesnt happen when zombie dies on barricade
                         if (piece instanceof Barricade) {
                             if (Zombie.zombies.size() == 0) {
-                                System.out.print("  ▎" + piece);
+                                System.out.print("   ▎" + piece);
                                 break;
                             }
                             int j = Zombie.zombies.size() - 1;
@@ -24,7 +24,7 @@ public class Board {
                                 if (x == zombie.getX() && y == zombie.getY()) {
                                     System.out.print("  " + zombie + piece);
                                     break outerloop;
-                                } else if (j-- == 0) System.out.print("  ▎" + piece);
+                                } else if (j-- == 0) System.out.print("   ▎" + piece);
                             }
                         } else {
                             System.out.print(" " + piece);
@@ -48,7 +48,7 @@ public class Board {
                     if (x == piece.getX() && y == piece.getY()) {
                         if (piece instanceof Barricade) {
                             if (Zombie.zombies.size() == 0) {
-                                System.out.print(piece + " ▎  ");
+                                System.out.print(piece + "▎   ");
                                 break;
                             }
                             int j = Zombie.zombies.size() - 1;
@@ -56,7 +56,7 @@ public class Board {
                                 if (x == zombie.getX() && y == zombie.getY()) {
                                     System.out.print(piece.toString() + zombie + "  ");
                                     break outerloop2;
-                                } else if (j-- == 0) System.out.print(piece + " ▎  ");
+                                } else if (j-- == 0) System.out.print(piece + "▎   ");
                             }
                         } else {
                             System.out.print(piece + " ");

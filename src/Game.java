@@ -7,12 +7,23 @@ public class Game {
     ArrayList<Positionable> pieces = new ArrayList<>();
     public static ArrayList<Zombie> dead = new ArrayList<>();
     Player player = new Player(0, 4);
+    int score = 0;
 
     public void moveAll() {
-        player.move();
+        for (int i = 0; i < 2; i++) {
+            board.updateBoard(pieces, player);
+            player.move();
+            checkDead();
+        }
         for (Zombie zombie : Zombie.zombies) {
             zombie.preMove();
             zombie.move();
+        }
+    }
+
+    public void zombieAttack() {
+        for (Zombie zombie : Zombie.zombies) {
+            zombie.attack();
         }
     }
 
@@ -23,14 +34,25 @@ public class Game {
         while (true) {
             int y = (int) (Math.random() * 5) + 1;
 
-            if (random_side == 0) {
+            if (Zombie.zombies.size() == 0) {
+                if (ratio <= 50) {
+                    pieces.add(new WalkingZombie(-11, y));
+                    break outerloop;
+                } else if (ratio <= 90) {
+                    pieces.add(new RunningZombie(-11, y));
+                    break outerloop;
+                } else {
+                    pieces.add(new TeleportingZombie(-11, y));
+                    break outerloop;
+                }
+            } else if (random_side == 0) {
                 for (Zombie zombie : Zombie.zombies) {
                     if (-11 == zombie.getX() && y == zombie.getY()) break;
                     else {
                         if (ratio <= 50) {
                             pieces.add(new WalkingZombie(-11, y));
                             break outerloop;
-                        } else if (ratio <= 80) {
+                        } else if (ratio <= 90) {
                             pieces.add(new RunningZombie(-11, y));
                             break outerloop;
                         } else {
@@ -67,6 +89,7 @@ public class Game {
                 dead.add(zt);
                 pieces.remove(piece);
                 zombie.remove();
+                score++;
             }
         }
     }
@@ -75,7 +98,11 @@ public class Game {
         for (Barricade barricade : Barricade.barricades) {
             if (!barricade.isAlive()) {
                 for (Zombie zombie : Zombie.zombies) {
-                    if (barricade.getX() == zombie.getX() && barricade.getY() == zombie.getY()) return false;
+                    if (barricade.getX() == zombie.getX() && barricade.getY() == zombie.getY()) {
+                        System.out.println("You lose!");
+                        System.out.println("Score: " + score);
+                        return false;
+                    }
                 }
             }
         }
